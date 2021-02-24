@@ -34,6 +34,7 @@ public class ImpossibleHangman {
             ArrayList<Word> wordList = divide.makeWordList(8);
             
             Word newWord = wordList.get(rand.nextInt(wordList.size()));
+            GuessField hangman = new GuessField(newWord.getWord());
             int guessLength = 1, maxGuess = 10;
             char[] guesses = new char[guessLength];
             
@@ -43,17 +44,20 @@ public class ImpossibleHangman {
             
             while (guessLength != maxGuess){
                 System.out.println(newWord.getWord());
-                System.out.println(newWord.printSpaces(guesses));
+                
+                
+                System.out.println(hangman.getGuessField());
 
                 System.out.println("Please pick a letter");
                 String guess = sc.nextLine();
-
+                
                 if (newWord.getWord().contains(guess)){
                     char c = guess.charAt(0);
                     int ind = newWord.getWord().indexOf(guess);
                     while (ind >= 0) {
                         wordList = divide.shortenWordList(wordList, ind, c);
                         ind = newWord.getWord().indexOf(guess, ind + 1);
+                        hangman.updateGuessField(hangman.getGuessField(), newWord.getWord(), c);
                     }
                     newWord = wordList.get(rand.nextInt(wordList.size()));
                     guesses = Arrays.copyOf(guesses, guessLength);

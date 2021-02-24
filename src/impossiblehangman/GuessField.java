@@ -24,7 +24,20 @@ public class GuessField {
             guessField = guessField + "_";
     }
     
-    public String printGuessField() {
+    public String getGuessField() {
         return guessField;
+    }
+    
+    public void updateGuessField(String str, String word, Character guess) {
+        char[] strChars = str.toCharArray();
+        char[] wordChars = word.toCharArray();
+        for (int i = 0; i < wordChars.length; i++) {
+            if (wordChars[i] == guess) {
+                strChars[i] = guess;
+            }
+
+        }    
+        guessField = String.valueOf(strChars);
+        
     }
 }
